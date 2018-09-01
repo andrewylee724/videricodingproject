@@ -11,7 +11,13 @@ class Folders extends Component {
   
   renderFolders() {
     return this.state.folders.map(folder => {
-      return <li key={folder}>{folder}</li>
+      return (
+        <li 
+          key={folder}
+          onClick={() => {this.props.handleFolderClick(folder)}}>
+            {folder}
+        </li>
+      )
     })
   }
 

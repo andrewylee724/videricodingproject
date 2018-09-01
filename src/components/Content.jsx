@@ -7,50 +7,58 @@ class Content extends Component {
 
     this.state = {
       selectedFolder: this.props.selectedFolder,
-      currFiles: [],
+      currFiles: this.props.currFiles,
     }
   }
 
   componentDidMount() {
+    console.log('select folder is', this.props.selectedFolder);
 
-    const url = 'https://pixabay.com/api';
-    let params = {
-      key: '9974841-d5eaa6de283f7e2309339b945',
-      q: this.state.selectedFolder,
-      lang: 'en',
-      image_type: 'all',
-      order: 'popular',
-    }
-
-    axios.get(url, {
-      params: params,
-    })
-    .then( results => {
-      let fetchedFiles = results.data.hits.splice(0,49);
-      console.log('success!', fetchedFiles);
-
-      //sort the files by name
-      fetchedFiles.forEach(file => {
-        file.fileName = this.getFileName(file.previewURL);
-        file.createdAt = this.getCreatedAt(file.previewURL);
-      })
-
-      fetchedFiles.sort(function(a, b) {
-        let nameA = a.fileName;
-        let nameB = b.fileName;
-
-        return nameA.localeCompare(nameB, 'en', {ignorePunctuation: true});
-      });
-
-      this.setState({
-        currFiles: fetchedFiles,
-      })
-    })
-    .catch( error => {
-      console.error('error in pixabay get request');
-    });
-
+    this.props.getFiles(this.state.selectedFolder);
   }
+
+  // getFiles() {
+  //   console.log('getFiles() wtih this folder:', this.state.selectedFolder)
+  //   const url = 'https://pixabay.com/api';
+
+  //   let params = {
+  //     key: '9974841-d5eaa6de283f7e2309339b945',
+  //     q: this.state.selectedFolder,
+  //     lang: 'en',
+  //     image_type: 'all',
+  //     order: 'popular',
+  //   }
+
+  //   axios.get(url, {
+  //     params: params,
+  //   })
+  //   .then( results => {
+  //     let fetchedFiles = results.data.hits.splice(0,49);
+  //     console.log('success!', fetchedFiles);
+
+  //     //sort the files by name
+  //     fetchedFiles.forEach(file => {
+  //       file.fileName = this.getFileName(file.previewURL);
+  //       file.createdAt = this.getCreatedAt(file.previewURL);
+  //     })
+
+  //     fetchedFiles.sort(function(a, b) {
+  //       let nameA = a.fileName;
+  //       let nameB = b.fileName;
+
+  //       return nameA.localeCompare(nameB, 'en', {ignorePunctuation: true});
+  //     });
+
+  //     this.setState({
+  //       currFiles: fetchedFiles,
+  //     })
+  //   })
+  //   .catch( error => {
+  //     console.error('error in pixabay get request');
+  //   });
+
+  //   this.props.getFiles();
+  // }
 
   getFileName(str) {
     let fileNames = str.split('/');
@@ -63,11 +71,16 @@ class Content extends Component {
   }
 
   renderFiles() {
-    let output = [];
 
-    output = this.state.currFiles;
+    let output = this.props.currFiles;
 
-    console.log('prior output is', output);
+    console.log('output is', output);
+
+    if(output.length === 0) {
+      return (
+        <span>There are currently no folders selected</span>
+      );
+    }
 
     output = output.map(file => {
       return (
@@ -83,12 +96,12 @@ class Content extends Component {
       );
     });
 
-    console.log('output is', output);
-
     return output;
   }
   
   render() {
+    console.log('Content is rendering');
+
     return (
       <div className="content" >
         <h2>Content</h2>
