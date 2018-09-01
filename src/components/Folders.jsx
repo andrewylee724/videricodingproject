@@ -5,16 +5,21 @@ class Folders extends Component {
     super()
 
     this.state = {
-
+      folders: ['Clouds', 'Cars', 'Birds'],
     }
   }
   
+  renderFolders() {
+    return this.state.folders.map(folder => {
+      return <li key={folder}>{folder}</li>
+    })
+  }
+
   render() {
     return (
       <div className="folders">
         <ul>
-          <li>Folder 12</li>
-          <li>Folder 13</li>
+          {this.renderFolders()}
         </ul>
       </div>
     )
