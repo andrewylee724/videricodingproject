@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar.jsx';
-import Folders from './Folders.jsx';
+import Folders from '../containers/Folders.jsx';
 import Content from './Content.jsx';
 import axios from 'axios';
 
