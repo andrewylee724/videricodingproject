@@ -22,7 +22,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.isLoggedIn ? <Main/> : <Login validateLogin={this.validateLogin} /> }
+        {/* {this.state.isLoggedIn ? <Main/> : <Login validateLogin={this.validateLogin} /> } */}
+        <Main/>
       </div>
     );
   }
