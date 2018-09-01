@@ -12,7 +12,10 @@ class NavBar extends Component {
   render() {
     return (
       <div className="nav-bar" >
-
+        <ul>
+          <li>Videri</li>
+          <li>Content</li>
+        </ul>
       </div>
     )
   }

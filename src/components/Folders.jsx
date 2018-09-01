@@ -11,8 +11,11 @@ class Folders extends Component {
   
   render() {
     return (
-      <div className="folders" >
-
+      <div className="folders">
+        <ul>
+          <li>Folder 12</li>
+          <li>Folder 13</li>
+        </ul>
       </div>
     )
   }

@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import NavBar from './NavBar.jsx';
+import Folders from './Folders.jsx';
+import Content from './Content.jsx';
 
 class Main extends Component {
   constructor() {
@@ -12,7 +15,10 @@ class Main extends Component {
   render() {
     return (
       <div className="main" >
-        Voila!
+        <NavBar />
+        <Folders />
+        <Content />
+
       </div>
     )
   }
