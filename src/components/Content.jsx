@@ -26,11 +26,24 @@ class Content extends Component {
       params: params,
     })
     .then( results => {
-      let fetchedFiles = [];
-      console.log('success!', results.data.hits);
+      let fetchedFiles = results.data.hits.splice(0,49);
+      console.log('success!', fetchedFiles);
+
+      //sort the files by name
+      fetchedFiles.forEach(file => {
+        file.fileName = this.getFileName(file.previewURL);
+        file.createdAt = this.getCreatedAt(file.previewURL);
+      })
+
+      fetchedFiles.sort(function(a, b) {
+        let nameA = a.fileName;
+        let nameB = b.fileName;
+
+        return nameA.localeCompare(nameB, 'en', {ignorePunctuation: true});
+      });
 
       this.setState({
-        currFiles: results.data.hits.splice(0, 49),
+        currFiles: fetchedFiles,
       })
     })
     .catch( error => {
@@ -39,33 +52,38 @@ class Content extends Component {
 
   }
 
+  getFileName(str) {
+    let fileNames = str.split('/');
+    return fileNames[fileNames.length - 1];
+  }
+
+  getCreatedAt(str) {
+    let splits = str.split('/');
+    return splits[5] + '/' + splits[6] + '/' + splits[4];
+  }
+
   renderFiles() {
     let output = [];
 
-    const getFileName = function(str) {
-      let fileNames = str.split('/');
-      return fileNames[fileNames.length - 1];
-    ;}
+    output = this.state.currFiles;
 
-    const getCreatedAt = function(str) {
-      let splits = str.split('/');
+    console.log('prior output is', output);
 
-      return splits[5] + '/' + splits[6] + '/' + splits[4];
-    }
-
-    output = this.state.currFiles.map(file => {
+    output = output.map(file => {
       return (
         <li key={file.id}>
           <div>
-            <img src={file.previewURL}/>
+            <img src={file.previewURL} alt={this.getFileName(file.previewURL)}/>
             {/*filename.mp4, resolution 4Khigh, seconds, length x width, created*/}
-              <span>{getFileName(file.previewURL)}</span>
+              <span>{this.getFileName(file.previewURL)}</span>
               <span>{file.webformatWidth + ' x ' + file.webformatHeight + '\n'}</span>
-              <span>Created At: {getCreatedAt(file.previewURL)}</span>
+              <span>Created At: {this.getCreatedAt(file.previewURL)}</span>
           </div>
         </li>
       );
     });
+
+    console.log('output is', output);
 
     return output;
   }
