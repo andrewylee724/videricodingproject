@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 
 class Folders extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      folders: ['Clouds', 'Cars', 'Birds'],
+      folders: this.props.folders,
     }
   }
   

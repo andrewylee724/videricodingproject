@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 class Content extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      currFolder: 'Clouds',
+      selectedFolder: this.props.selectedFolder,
       currFiles: [],
     }
   }
@@ -16,7 +16,7 @@ class Content extends Component {
     const url = 'https://pixabay.com/api';
     let params = {
       key: '9974841-d5eaa6de283f7e2309339b945',
-      q: this.state.currFolder,
+      q: this.state.selectedFolder,
       lang: 'en',
       image_type: 'all',
       order: 'popular',

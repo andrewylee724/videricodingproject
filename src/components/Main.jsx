@@ -8,16 +8,17 @@ class Main extends Component {
     super()
 
     this.state = {
-
+      folders: ['Clouds', 'Cars', 'Birds'],
+      selectedFolder: 'Clouds',
     }
   }
-  
+
   render() {
     return (
       <div className="main" >
         <NavBar />
-        <Folders />
-        <Content />
+        <Folders folders={this.state.folders} />
+        <Content selectedFolder={this.state.selectedFolder}/>
 
       </div>
     )
