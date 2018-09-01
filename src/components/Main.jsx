@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import NavBar from './NavBar.jsx';
 import Folders from '../containers/Folders.jsx';
 import Content from './Content.jsx';
+import PIXABAY_API_KEY from '../config_keys.js';
 import axios from 'axios';
+
+console.log('api key is', PIXABAY_API_KEY);
 
 class Main extends Component {
   constructor() {
