@@ -42,7 +42,7 @@ class Content extends Component {
     output = output.map(file => {
       return (
         <li key={file.id}>
-          <div>
+          <div onClick={() => {this.props.openModal(file.webformatURL)}}>
             <img src={file.previewURL} alt={this.getFileName(file.previewURL)}/>
             {/*filename.mp4, resolution 4Khigh, seconds, length x width, created*/}
               <span>{this.getFileName(file.previewURL)}</span>

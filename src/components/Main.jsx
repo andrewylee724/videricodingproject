@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import NavBar from './NavBar.jsx';
 import Folders from '../containers/Folders.jsx';
 import Content from './Content.jsx';
+import Modal from '../containers/Modal.jsx';
+
 import PIXABAY_API_KEY from '../config_keys.js';
 import axios from 'axios';
 
-console.log('api key is', PIXABAY_API_KEY);
+console.log('api key is', process.env.REACT_APP_PIXABAY_API_KEY);
 
 class Main extends Component {
   constructor() {
@@ -15,10 +17,14 @@ class Main extends Component {
       folders: ['Clouds', 'Cars', 'Birds'],
       selectedFolder: 'Clouds',
       currFiles: [],
+      showModal: false,
+      modalURL: '',
     }
 
     this.handleFolderClick = this.handleFolderClick.bind(this);
     this.getFiles = this.getFiles.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleFolderClick(folder) {
@@ -79,10 +85,24 @@ class Main extends Component {
     return splits[5] + '/' + splits[6] + '/' + splits[4];
   }
 
+  openModal(str) {
+    console.log('open modal!');
+    this.setState({
+      showModal: true,
+      modalURL: str,
+    })
+  }
+
+  closeModal() {
+    this.setState({
+      showModal: false,
+    })
+  }
+
   render() {
     return (
       <div className="main" >
-        <NavBar />
+        <NavBar/>
         <Folders 
           folders={this.state.folders}  
           handleFolderClick={this.handleFolderClick}
@@ -91,7 +111,9 @@ class Main extends Component {
           selectedFolder={this.state.selectedFolder} 
           currFiles={this.state.currFiles}
           getFiles={this.getFiles}
+          openModal={this.openModal}
         />
+        {this.state.showModal && <Modal modalURL={this.state.modalURL} closeModal={this.closeModal}/>}
       </div>
     )
   }
