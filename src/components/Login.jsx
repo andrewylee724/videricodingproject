@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Helpers from '../helpers.js';
 
 class Login extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Login extends Component {
 
     const {password} = this.state;
 
-    if(this.hasUpperCase(password) && this.hasLowerCase(password) && this.hasSpecialCharacters(password)) {
+    if(Helpers.hasUpperCase(password) && Helpers.hasLowerCase(password) && Helpers.hasSpecialCharacters(password)) {
       this.props.validateLogin()
     } else {
       this.setState({
@@ -38,31 +39,6 @@ class Login extends Component {
       })
     }
 
-  }
-
-
-  hasUpperCase(str) {
-    let test = str.toLowerCase()
-    return str === test ? false : true;
-  }
-
-  hasLowerCase(str) {
-    let test = str.toUpperCase()
-    return str === test ? false : true;
-  }
-
-  hasSpecialCharacters(str) {
-    let specialChars = "*|,\":<>[]{}`\';()@&$#%";
-    let hasSpecialChar = false;
-
-    for (let i = 0; i < str.length; i++) {
-      if (specialChars.indexOf(str.charAt(i)) != -1) {
-        hasSpecialChar = true;
-        break;
-      }
-    }
-
-    return hasSpecialChar;
   }
 
   render() {

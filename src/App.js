@@ -9,7 +9,7 @@ class App extends Component {
     super();
 
     this.state =  {
-      isLoggedIn: false
+      isLoggedIn: false,
     }
 
     this.validateLogin = this.validateLogin.bind(this)
