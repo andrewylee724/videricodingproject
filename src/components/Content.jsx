@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Helpers from '../helpers.js';
 
 class Content extends Component {
   constructor(props) {
@@ -15,16 +16,6 @@ class Content extends Component {
     console.log('select folder is', this.props.selectedFolder);
 
     this.props.getFiles(this.state.selectedFolder);
-  }
-
-  getFileName(str) {
-    let fileNames = str.split('/');
-    return fileNames[fileNames.length - 1];
-  }
-
-  getCreatedAt(str) {
-    let splits = str.split('/');
-    return splits[5] + '/' + splits[6] + '/' + splits[4];
   }
 
   renderFiles() {
@@ -43,11 +34,11 @@ class Content extends Component {
       return (
         <li key={file.id}>
           <div onClick={() => {this.props.openModal(file.webformatURL)}}>
-            <img src={file.previewURL} alt={this.getFileName(file.previewURL)}/>
+            <img src={file.previewURL} alt={Helpers.getFileName(file.previewURL)}/>
             {/*filename.mp4, resolution 4Khigh, seconds, length x width, created*/}
-              <span>{this.getFileName(file.previewURL)}</span>
+              <span>{Helpers.getFileName(file.previewURL)}</span>
               <span>{file.webformatWidth + ' x ' + file.webformatHeight + '\n'}</span>
-              <span>Created At: {this.getCreatedAt(file.previewURL)}</span>
+              <span>Created At: {Helpers.getCreatedAt(file.previewURL)}</span>
           </div>
         </li>
       );
