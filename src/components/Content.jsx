@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Helpers from '../helpers.js';
+import './Content.css';
 
 class Content extends Component {
   constructor(props) {
@@ -32,11 +33,11 @@ class Content extends Component {
 
     output = output.map(file => {
       return (
-        <li key={file.id}>
+        <li className="card" key={file.id}>
           <div onClick={() => {this.props.openModal(file.webformatURL)}}>
             <img src={file.previewURL} alt={Helpers.getFileName(file.previewURL)}/>
             {/*filename.mp4, resolution 4Khigh, seconds, length x width, created*/}
-              <span>{Helpers.getFileName(file.previewURL)}</span>
+              <span>Name: {Helpers.getFileName(file.previewURL)}</span>
               <span>{file.webformatWidth + ' x ' + file.webformatHeight + '\n'}</span>
               <span>Created At: {Helpers.getCreatedAt(file.previewURL)}</span>
           </div>
@@ -53,7 +54,7 @@ class Content extends Component {
     return (
       <div className="content" >
         <h2>Content</h2>
-          <ul>
+          <ul className='cards'>
             {this.renderFiles()}
           </ul>
       </div>
